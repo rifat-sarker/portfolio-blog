@@ -1,25 +1,26 @@
 import Link from "next/link";
 import { AiFillProject } from "react-icons/ai";
 import { BiSolidMessageSquareDetail } from "react-icons/bi";
-import { FaHome, FaBlog } from "react-icons/fa";
+import { FaBlog } from "react-icons/fa";
+import { MdDashboard } from "react-icons/md";
 
 export default function Sidebar() {
   return (
-    <div className="bg-slate-100 min-h-screen p-4 rounded-xl">
+    <div className="min-h-screen p-4 rounded-xl ">
       <ul className="space-y-4">
         <li>
           <Link
             href="/dashboard"
-            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-slate-200"
           >
-            <FaHome className="h-5 w-5" />
+            <MdDashboard className="h-5 w-5" />
             <span>Dashboard</span>
           </Link>
         </li>
         <li>
           <Link
             href="/dashboard/projects"
-            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-slate-200"
           >
             <AiFillProject className="h-5 w-5" />
             <span>Project Management</span>
@@ -28,7 +29,7 @@ export default function Sidebar() {
         <li>
           <Link
             href="/dashboard/blogs"
-            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-slate-200"
           >
             <FaBlog className="h-5 w-5" />
             <span>Blog Management</span>
@@ -37,7 +38,7 @@ export default function Sidebar() {
         <li>
           <Link
             href="/dashboard/messages"
-            className="flex items-center space-x-2 p-3 rounded-md hover:bg-gray-200 text-gray-700"
+            className="flex items-center space-x-2 p-3 rounded-md hover:bg-slate-200"
           >
             <BiSolidMessageSquareDetail className="h-5 w-5" />
             <span>Message Management</span>

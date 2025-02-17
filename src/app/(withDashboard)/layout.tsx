@@ -1,14 +1,15 @@
+
 import Sidebar from "@/components/shared/Sidebar";
 
 export default function DashboardLayout({ children }) {
   return (
     <div>
-      <header>Navbar</header>
+      {/* <Navbar /> */}
       <div className="flex">
-        <div className="w-1/4">
+        <div className="w-[20%] shadow-lg rounded-lg">
           <Sidebar />
         </div>
-        <div className="w-3/4">{children}</div>
+        <div className="w-[80%]">{children}</div>
       </div>
     </div>
   );
