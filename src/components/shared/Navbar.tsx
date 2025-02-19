@@ -52,7 +52,7 @@ export default function Navbar({ session }: { session: TUserProps | null }) {
         </h1>
 
         {/* Desktop Screen */}
-        <ul className="hidden lg:flex gap-6 font-medium">
+        <ul className="hidden lg:flex gap-6 ">
           <li>
             <Link href="/">Home</Link>
           </li>
@@ -73,21 +73,21 @@ export default function Navbar({ session }: { session: TUserProps | null }) {
         <div className="hidden lg:flex items-center gap-4">
           <button
             onClick={toggleTheme}
-            className="p-2 bg-gray-600 text-white rounded-lg shadow-md"
+            className="p-2"
           >
-            {darkMode ? <BsSun size={24} /> : <BsMoon size={24} />}
+            {darkMode ? <BsSun className="" size={24} /> : <BsMoon size={24} />}
           </button>
           {session?.user ? (
             <Link
               onClick={() => signOut()}
               href="/"
-              className="border border-teal-500 text-teal-500 px-5 py-2 rounded-md hover:bg-teal-500 hover:text-black transition duration-200"
+              className="border  px-5 py-2 border-slate-400"
             >
               Logout
             </Link>
           ) : (
             <Link href="/login" className="">
-              <button className="border border-teal-500 text-teal-500 px-5 py-2 rounded-md hover:bg-teal-500 hover:text-black transition duration-200">
+              <button className="border px-4 py-2  border-slate-400">
                 Login
               </button>
             </Link>
@@ -102,7 +102,7 @@ export default function Navbar({ session }: { session: TUserProps | null }) {
 
       {/* Mobile Screen */}
       {isOpen && (
-        <div className="lg:hidden flex flex-col items-center gap-4 py-4 font-medium">
+        <div className="lg:hidden flex flex-col items-center gap-4 py-4 ">
           <Link href="/" onClick={handleToggle}>
             Home
           </Link>
@@ -120,7 +120,7 @@ export default function Navbar({ session }: { session: TUserProps | null }) {
           </Link>
           <button
             onClick={toggleTheme}
-            className="p-2 bg-gray-600 text-white rounded-lg shadow-md"
+            className="p-2"
           >
             {darkMode ? <BsSun size={24} /> : <BsMoon size={24} />}
           </button>
@@ -128,13 +128,13 @@ export default function Navbar({ session }: { session: TUserProps | null }) {
             <Link
               onClick={() => signOut()}
               href="/"
-              className="border border-teal-500 text-teal-500 px-5 py-2 rounded-md hover:bg-teal-500 hover:text-black transition duration-200"
+              className="border px-4 py-2"
             >
               Logout
             </Link>
           ) : (
             <Link href="/login" onClick={handleToggle}>
-              <button className="border border-teal-500 text-teal-500 px-5 py-2 rounded-md hover:bg-teal-500 hover:text-black transition duration-200">
+              <button className="border px-4 py-2">
                 Login
               </button>
             </Link>

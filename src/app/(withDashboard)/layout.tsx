@@ -7,12 +7,11 @@ export default function DashboardLayout({
 }>) {
   return (
     <div>
-      {/* <Navbar /> */}
       <div className="flex">
-        <div className="w-[20%] shadow-lg rounded-lg">
+        <div className="w-[20%]">
           <Sidebar />
         </div>
-        <div className="w-[80%] bg-[#023430] text-white">{children}</div>
+        <div className="w-[80%]">{children}</div>
       </div>
     </div>
   );
