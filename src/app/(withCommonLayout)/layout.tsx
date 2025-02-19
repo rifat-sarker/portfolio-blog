@@ -1,17 +1,18 @@
-
 import Navbar from "@/components/shared/Navbar";
-import Sidebar from "@/components/shared/Sidebar";
+import { authOptions } from "@/utils/actions/authOptions";
+import { getServerSession } from "next-auth";
 
-export default function DashboardLayout({ children }) {
+export default async function DashboardLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  const session = await getServerSession(authOptions);
+  console.log(session);
   return (
     <div>
-      <Navbar />
-      <div className="flex">
-        <div className="w-[20%] shadow-lg rounded-lg">
-          <Sidebar />
-        </div>
-        <div className="w-[80%]">{children}</div>
-      </div>
+      <Navbar session={session} />
+      <div>{children}</div>
     </div>
   );
 }

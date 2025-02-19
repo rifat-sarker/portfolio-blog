@@ -1,10 +1,20 @@
 "use client";
+
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { MdOutlineMenu, MdClose } from "react-icons/md";
 import { BsSun, BsMoon } from "react-icons/bs";
+import { signOut } from "next-auth/react";
 
-export default function Navbar({ session }) {
+type TUserProps = {
+  user?: {
+    name?: string | null | undefined;
+    email?: string | null | undefined;
+    image?: string | null | undefined;
+  };
+};
+
+export default function Navbar({ session }: { session: TUserProps | null }) {
   const [isOpen, setIsOpen] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
 
@@ -68,12 +78,16 @@ export default function Navbar({ session }) {
             {darkMode ? <BsSun size={24} /> : <BsMoon size={24} />}
           </button>
           {session?.user ? (
-            <button className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200">
+            <Link
+              onClick={() => signOut()}
+              href="/"
+              className="border border-teal-500 text-teal-500 px-5 py-2 rounded-md hover:bg-teal-500 hover:text-black transition duration-200"
+            >
               Logout
-            </button>
+            </Link>
           ) : (
             <Link href="/login" className="">
-              <button className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200">
+              <button className="border border-teal-500 text-teal-500 px-5 py-2 rounded-md hover:bg-teal-500 hover:text-black transition duration-200">
                 Login
               </button>
             </Link>
@@ -111,12 +125,16 @@ export default function Navbar({ session }) {
             {darkMode ? <BsSun size={24} /> : <BsMoon size={24} />}
           </button>
           {session?.user ? (
-            <button className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200">
+            <Link
+              onClick={() => signOut()}
+              href="/"
+              className="border border-teal-500 text-teal-500 px-5 py-2 rounded-md hover:bg-teal-500 hover:text-black transition duration-200"
+            >
               Logout
-            </button>
+            </Link>
           ) : (
             <Link href="/login" onClick={handleToggle}>
-              <button className="border border-teal-500 text-teal-500 px-5 py-2 rounded-full hover:bg-teal-500 hover:text-black transition duration-200">
+              <button className="border border-teal-500 text-teal-500 px-5 py-2 rounded-md hover:bg-teal-500 hover:text-black transition duration-200">
                 Login
               </button>
             </Link>
