@@ -5,7 +5,7 @@ import { Project } from "@/types/project";
 
 export default async function ProjectPage() {
   const projects = await project();
-  console.log(projects.data);
+  // console.log(projects.data);
   return (
     <div className="p-4">
       <AddProjectButton />

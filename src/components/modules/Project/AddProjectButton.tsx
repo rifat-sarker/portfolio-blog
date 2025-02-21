@@ -5,7 +5,6 @@ import ProjectModal from "./ProjectModal";
 
 export default function AddProjectButton() {
   const [isOpen, setIsOpen] = useState(false);
-
   return (
     <>
       <button

@@ -17,38 +17,40 @@ export default function ProjectModal({
   } = useForm();
 
   const [imageURL, setImageURL] = useState("");
+  const [isLoading, setIsLoading] = useState(false); // Loading state
 
-  // Handle form submission
   const onSubmit = async (data: any) => {
     const projectData = {
       title: data.title,
       live: data.liveLink,
       code: data.codeLink,
       description: data.description,
-      category: data.category, 
-      image: imageURL, 
+      category: data.category,
+      image: imageURL,
     };
 
-    // console.log("Sending Data:", projectData);
+    setIsLoading(true); // Show loading spinner
 
     try {
       const res = await createProject(projectData);
-      // console.log("Response:", res); 
       if (res.success) {
         toast.success(res.message);
         closeModal();
+        setIsLoading(false); // Hide loading spinner
       } else {
         toast.error("Failed to create project");
+        setIsLoading(false); // Hide loading spinner
       }
     } catch (error) {
       console.error("Error creating project:", error);
       toast.error("Something went wrong. Please try again.");
+      setIsLoading(false); // Hide loading spinner
     }
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-      <div className="bg-white p-6 rounded-lg shadow-lg w-96">
+      <div className="bg-white p-6 rounded-lg shadow-lg max-w-5xl">
         <h2 className="text-xl font-bold mb-4">Add New Project</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <input
@@ -97,9 +99,13 @@ export default function ProjectModal({
             <button
               type="submit"
               className="px-4 py-2 bg-green-500 text-white rounded"
-              disabled={isSubmitting}
+              disabled={isSubmitting || isLoading} // Disable the button if submitting or loading
             >
-              {isSubmitting ? "Adding..." : "Add"}
+              {isLoading ? (
+                <span className="animate-spin">🔄</span> // Loading spinner
+              ) : (
+                "Add"
+              )}
             </button>
             <button
               type="button"
