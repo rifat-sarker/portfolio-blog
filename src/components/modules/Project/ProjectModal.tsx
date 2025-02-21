@@ -1,94 +1,105 @@
 "use client";
 
+import { createProject } from "@/services/Project";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 export default function ProjectModal({
   closeModal,
 }: {
   closeModal: () => void;
 }) {
-  const [formData, setFormData] = useState({
-    title: "",
-    liveLink: "",
-    description: "",
-    category: "Frontend",
-    image: null as File | null,
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting },
+  } = useForm();
 
-  const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
-  ) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const [imageURL, setImageURL] = useState("");
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (e.target.files) {
-      setFormData((prev) => ({ ...prev, image: e.target.files[0] }));
+  // Handle form submission
+  const onSubmit = async (data: any) => {
+    const projectData = {
+      title: data.title,
+      live: data.liveLink,
+      code: data.codeLink,
+      description: data.description,
+      category: data.category, 
+      image: imageURL, 
+    };
+
+    // console.log("Sending Data:", projectData);
+
+    try {
+      const res = await createProject(projectData);
+      // console.log("Response:", res); 
+      if (res.success) {
+        toast.success(res.message);
+        closeModal();
+      } else {
+        toast.error("Failed to create project");
+      }
+    } catch (error) {
+      console.error("Error creating project:", error);
+      toast.error("Something went wrong. Please try again.");
     }
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    console.log("Submitting project:", formData);
-    closeModal();
   };
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
       <div className="bg-white p-6 rounded-lg shadow-lg w-96">
         <h2 className="text-xl font-bold mb-4">Add New Project</h2>
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <input
             type="text"
-            name="title"
+            {...register("title", { required: true })}
             placeholder="Project Title"
             className="w-full p-2 border rounded"
-            value={formData.title}
-            onChange={handleChange}
-            required
           />
           <input
             type="url"
-            name="liveLink"
+            {...register("liveLink", { required: true })}
             placeholder="Live Link"
             className="w-full p-2 border rounded"
-            value={formData.liveLink}
-            onChange={handleChange}
-            required
           />
-          <textarea
-            name="description"
-            placeholder="Project Description"
+          <input
+            type="url"
+            {...register("codeLink", { required: true })}
+            placeholder="GitHub Repo Link"
             className="w-full p-2 border rounded"
-            rows={3}
-            value={formData.description}
-            onChange={handleChange}
+          />
+
+          <input
+            type="url"
+            placeholder="Image URL"
+            className="w-full p-2 border rounded"
+            value={imageURL}
+            onChange={(e) => setImageURL(e.target.value)}
             required
           />
           <select
-            name="category"
+            {...register("category", { required: true })}
             className="w-full p-2 border rounded"
-            value={formData.category}
-            onChange={handleChange}
           >
             <option value="Frontend">Frontend</option>
             <option value="Backend">Backend</option>
             <option value="Full Stack">Full Stack</option>
           </select>
-          <input
-            type="file"
-            accept="image/*"
+          <textarea
+            {...register("description", { required: true })}
+            placeholder="Project Description"
             className="w-full p-2 border rounded"
-            onChange={handleFileChange}
+            rows={3}
           />
+
           <div className="flex justify-between">
             <button
               type="submit"
-              className="px-4 py-2 bg-blue-500 text-white rounded"
+              className="px-4 py-2 bg-green-500 text-white rounded"
+              disabled={isSubmitting}
             >
-              Save
+              {isSubmitting ? "Adding..." : "Add"}
             </button>
             <button
               type="button"

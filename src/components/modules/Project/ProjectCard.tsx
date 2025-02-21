@@ -5,8 +5,8 @@ const ProjectCard = ({ project }: { project: Project }) => {
   return (
     <div className="space-y-3">
       <Image
-        src={project.image}
-        alt={project.title}
+        src={project.image || "/default-placeholder.png"}
+        alt={project.title || "project_img"}
         height={500}
         width={500}
         className="w-full h-40 object-cover rounded-lg"
