@@ -48,7 +48,7 @@ export default function Sidebar() {
       {/* Sidebar */}
       <div
         ref={sidebarRef}
-        className={`bg-white text-black min-h-screen p-4 border-r border-gray-300 fixed inset-y-0 left-0 transform transition-transform md:relative md:translate-x-0 w-64 
+        className={`bg-white text-black min-h-screen p-4 border-r border-gray-300 fixed inset-y-0 left-0 transform transition-transform md:relative md:translate-x-0
           ${isOpen ? "translate-x-0" : "-translate-x-full"} md:block`}
       >
         <ul className="space-y-4">

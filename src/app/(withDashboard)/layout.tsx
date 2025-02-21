@@ -7,11 +7,11 @@ export default function DashboardLayout({
 }>) {
   return (
     <div>
-      <div className="flex">
-        <div className="w-[20%]">
+      <div className="flex gap-4">
+        <div className="w-[15%]">
           <Sidebar />
         </div>
-        <div className="w-[80%]">{children}</div>
+        <div className="w-[85%]">{children}</div>
       </div>
     </div>
   );
