@@ -1,5 +1,6 @@
 "use server";
 
+import { Project } from "@/types/project";
 import { revalidateTag } from "next/cache";
 
 export const project = async () => {
@@ -15,18 +16,15 @@ export const project = async () => {
   }
 };
 
-export const createProject = async (data: any) => {
+export const createProject = async (projectData: Project) => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_API}/projects`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(projectData),
     });
-
-    if (!res.ok) throw new Error(`Error: ${res.status} - ${res.statusText}`);
-
     revalidateTag("PROJECT");
     return res.json();
   } catch (error: any) {
@@ -47,5 +45,26 @@ export const deleteProject = async (projectId: string) => {
     return res.json();
   } catch (error: any) {
     return Error(error);
+  }
+};
+
+export const updateProject = async (projectData: Project, projectId: string) => {
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_API}/projects/${projectId}`,
+      {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(projectData),
+      }
+    );
+
+    revalidateTag("PROJECT");
+    return res.json();
+  } catch (error: any) {
+    console.error("Error:", error);
+    return { success: false, message: error.message };
   }
 };
