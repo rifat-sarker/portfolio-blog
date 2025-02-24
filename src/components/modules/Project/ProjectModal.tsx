@@ -8,7 +8,7 @@ import { toast } from "sonner";
 
 type ProjectModalProps = {
   closeModal: () => void;
-  project: Project | null;
+  project?: Project | null;
 };
 
 export default function ProjectModal({

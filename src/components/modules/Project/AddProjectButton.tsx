@@ -9,7 +9,7 @@ export default function AddProjectButton() {
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="px-6 py-2 rounded bg-green-500 text-white my-4"
+        className="px-6 py-2 rounded bg-[#176433] text-white my-4"
       >
         Add Project +
       </button>

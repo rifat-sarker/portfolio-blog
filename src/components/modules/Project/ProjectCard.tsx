@@ -48,13 +48,13 @@ const ProjectCard = ({ project }: { project: Project }) => {
       <div className="grid grid-cols-2 gap-2">
         <button
           onClick={openModal}
-          className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600"
+          className="px-4 py-2 bg-[#176433] text-white rounded-lg hover:bg-green-600"
         >
           Edit
         </button>
         <button
           onClick={handleDeleteProject}
-          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+          className="px-4 py-2 bg-[#B30D0D] text-white rounded-lg hover:bg-red-600"
         >
           Delete
         </button>
