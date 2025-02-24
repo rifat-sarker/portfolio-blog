@@ -1,7 +1,28 @@
+"use client";
+import { deleteProject } from "@/services/Project";
 import { Project } from "@/types/project";
 import Image from "next/image";
+import { toast } from "sonner";
 
 const ProjectCard = ({ project }: { project: Project }) => {
+  const handleDeleteProject = async () => {
+    // const isConfirmed = window.confirm(
+    //   "Are you sure you want to delete this project?"
+    // );
+    // if (!isConfirmed) return;
+
+    try {
+      const res = await deleteProject(project._id);
+      if (res.success) {
+        toast.success(res.message);
+      } else {
+        toast.error(res.message || "Failed to delete project.");
+      }
+    } catch (err: any) {
+      toast.error(err?.message || "An error occurred.");
+      console.error("Delete error:", err);
+    }
+  };
   return (
     <div className="space-y-3">
       <Image
@@ -20,7 +41,10 @@ const ProjectCard = ({ project }: { project: Project }) => {
         <button className="px-4 py-2 bg-green-500 text-white rounded-lg hover:bg-green-600">
           Edit
         </button>
-        <button className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600">
+        <button
+          onClick={handleDeleteProject}
+          className="px-4 py-2 bg-red-500 text-white rounded-lg hover:bg-red-600"
+        >
           Delete
         </button>
       </div>
